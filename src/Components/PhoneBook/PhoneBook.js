@@ -10,13 +10,9 @@ class PhoneBook extends Component {
 
   render() {
     return (
-      <>
+      <div className={s.PhoneBookBlock}>
         <Form onSubmit={this.formSubmit} />
-
-        <div>
-          <Contacts el={this.handleChange} />
-        </div>
-      </>
+      </div>
     );
   }
 }
