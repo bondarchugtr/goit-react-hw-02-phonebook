@@ -9,8 +9,7 @@ const Filter = ({ filterContact, value }) => {
           className={s.Filter__input}
           value={value}
           onChange={filterContact}
-          placeholder="Enter your name
-"
+          placeholder="Enter your name"
         ></input>
       </form>
     </div>

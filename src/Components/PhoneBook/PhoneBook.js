@@ -8,12 +8,7 @@ import { nanoid } from 'nanoid';
 
 class PhoneBook extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -23,10 +18,18 @@ class PhoneBook extends Component {
       name: data.name,
       number: data.number,
     };
-    console.log(contact);
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, { ...contact }],
-    }));
+    if (this.availabilityContact(contact.name)) {
+      return alert(`Name ${contact.name}already on your list
+      `);
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, { ...contact }],
+      }));
+    }
+  };
+
+  availabilityContact = value => {
+    return this.state.contacts.find(el => el.name === value);
   };
 
   delContact = contactId => {
@@ -35,7 +38,6 @@ class PhoneBook extends Component {
     }));
   };
   filterContact = e => {
-    console.log('object');
     this.setState({ filter: e.target.value });
   };
 
@@ -52,7 +54,12 @@ class PhoneBook extends Component {
         </div>
         <div>
           <div>
-            <Filter filterContact={this.filterContact} value={filter} />
+            <h2 className={s.Contacts__title}>Contacts</h2>
+            {contacts.length > 0 ? (
+              <Filter filterContact={this.filterContact} value={filter} />
+            ) : (
+              <p className={s.Filter__text}>No contacts🙁</p>
+            )}
           </div>
           <ContactsList
             contacts={visibleContacts}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from '../Forma/FormPhonebook';
 import s from './PhoneBook.module.css';
 const ContactsList = ({ contacts = [], delContact }) => {
   return (
@@ -22,7 +21,6 @@ const ContactsList = ({ contacts = [], delContact }) => {
     </ul>
   );
 };
-
 ContactsList.propTypes = {
   contactsList: PropTypes.arrayOf(
     PropTypes.shape({
