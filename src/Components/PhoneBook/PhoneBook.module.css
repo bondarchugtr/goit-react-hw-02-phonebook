@@ -2,12 +2,12 @@
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid rgb(123, 187, 230);
   width: 680px;
 }
 
 .PhoneBookBlock {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  padding: 20px;
+  flex-direction: column; */
+  /* padding: 20px; */
 }

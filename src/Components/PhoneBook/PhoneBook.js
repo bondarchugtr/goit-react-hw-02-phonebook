@@ -1,18 +1,65 @@
 import React, { Component } from 'react';
 // import s from '../InputPhoneBook/InputPhonebook.module.css';
-import Form from '../InputPhoneBook/InputFormPhonebook';
-import Contacts from '../PhoneContacts/PhoneContacts';
+import Form from '../Forma/FormPhonebook';
+import ContactsList from '../PhoneContacts/PhoneContacts';
+import Filter from '../Filter/Filter';
 import s from './PhoneBook.module.css';
+import { nanoid } from 'nanoid';
+
 class PhoneBook extends Component {
-  formSubmit = data => {
-    console.log(data);
+  state = {
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+  };
+
+  onSubmit = data => {
+    const contact = {
+      id: nanoid(),
+      name: data.name,
+      number: data.number,
+    };
+    console.log(contact);
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { ...contact }],
+    }));
+  };
+
+  delContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+  filterContact = e => {
+    console.log('object');
+    this.setState({ filter: e.target.value });
   };
 
   render() {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
     return (
-      <div className={s.PhoneBookBlock}>
-        <Form onSubmit={this.formSubmit} />
-      </div>
+      <>
+        <div className={s.PhoneBookBlock}>
+          <Form onSubmit={this.onSubmit} />
+        </div>
+        <div>
+          <div>
+            <Filter filterContact={this.filterContact} value={filter} />
+          </div>
+          <ContactsList
+            contacts={visibleContacts}
+            delContact={this.delContact}
+          />
+        </div>
+      </>
     );
   }
 }

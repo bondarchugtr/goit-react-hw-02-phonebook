@@ -5,7 +5,6 @@ import Contacts from '../PhoneContacts/PhoneContacts';
 
 class Form extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
@@ -35,17 +34,19 @@ class Form extends Component {
   };
 
   render() {
-    const { contacts, name, number } = this.state;
+    const { name, number } = this.state;
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className={s.Forma}>
           <label className={s.nameinput} />
           Name
           <input
-            // id={this.nanoid}
+            className={s.Forma__input}
+            id={nanoid()}
             type="text"
             name="name"
             value={name}
+            placeholder="Ivan Petrov"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -54,18 +55,21 @@ class Form extends Component {
           <label className={s.nameinput} />
           Number
           <input
-            // id={this.nanoid}
+            className={s.Forma__input}
+            id={nanoid()}
             type="text"
             name="number"
             value={number}
-            // pattern="^(?:\+38)?(?:\(044\)[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[0-9]{7})$"
-            // title="Number in correct"
+            placeholder="+380990000000"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={this.handleInputChange}
           />
-          <button type="submit">Add Contact</button>
+          <button type="submit" className={s.Button__form}>
+            Add Contact
+          </button>
         </form>
-        <Contacts contacts={this.onContactsItem} />
       </>
     );
   }
